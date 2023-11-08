@@ -1,0 +1,2 @@
+RTT        | Send-Time            | Recive-Time          | UDP ist so viel schneller
+1012.0 ms  | 1684842856198        | 1684842857210        | 1012.0

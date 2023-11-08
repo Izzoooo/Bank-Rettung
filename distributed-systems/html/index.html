@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Konto verwalten</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue;
+            text-align: center;
+        }
+
+        h1 {
+            color: #222;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        form {
+            width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        input[type="number"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 2px solid gray; /* Hier wird eine 2px breite, graue Umrandung hinzugefügt */
+            border-radius: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        input[type="text"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: 2px solid gray; /* Hier wird eine 2px breite, graue Umrandung hinzugefügt */
+            border-radius: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        select {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            font-size: 16px;
+            outline: none;
+        }
+
+
+             /* Stil für den Absenden-Button */
+         input[type="submit"] {
+             text-align: center;
+             background-color: gold;
+             color: black;
+             border-radius: 20px;
+             padding: 10px;
+             font-size: 16px;
+             cursor: pointer;
+             transition: background-color 0.3s, transform 2s;
+             outline: none;
+         }
+
+        /* Animation für den Absenden-Button */
+        input[type="submit"]:hover {
+            background-color: goldenrod;
+            transform: translateX(200px);
+            transition: background-color 0.3s, transform 5s;
+        }
+
+
+
+
+        #balance {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-top: 50px;
+            border-radius: 20px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        .safe-hands-label {
+            text-align: left;
+            background-color: #fff; /* Hintergrundfarbe */
+            color: black; /* Textfarbe */
+            padding: 10px; /* Innenabstand */
+            border-radius: 5px; /* Abrundung der Ecken */
+            font-weight: bold; /* Fettschrift */
+            font-size: 16px; /* Schriftgröße */
+            text-align: center; /* Textausrichtung */
+            margin-bottom: 20px; /* Abstand zum unteren Element */
+        }
+        .label{
+            color: white;
+            padding: 8px;
+            font-family: Arial;
+        }
+        .info {
+            background-color: #2196F3; /* Blue */
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div class="safe-hands-label">
+    <span class="label info">Info</span>
+    Ihr Geld wird sicher eingegangen HAHA
+</div>
+
+<h1>Konto verwalten</h1>
+<form method="post" action="TCPSocketServer.java">
+    <label for="amount">Betrag (in EUR):</label>
+    <input type="number" id="amount" name="amount" step="0.01">
+    <label for="transaction">Transaktion:</label>
+    <select id="transaction" name="transaction">
+        <option value="einzahlen">Einzahlung</option>
+        <option value="auszahlen">Auszahlung</option>
+    </select>
+    <input type="submit" value="Absenden" onclick="performTransaction()">
+</form>
+
+<div id="balance">Kontostand: 0.00 EUR</div>
+<script>
+    let balance = 0.00;
+
+
+    function performTransaction() {
+        let amount = parseFloat(document.getElementById("amount").value);
+        let transaction = document.getElementById("transaction").value;
+        if (transaction === "einzahlen") {
+            balance += amount;
+        } else {
+            balance -= amount;
+        }
+        document.getElementById("balance").textContent = "Kontostand: " + balance.toFixed(2) + " EUR";
+
+    }
+    window.setInterval(performTransaction, 5000);
+</script>
+</body>
+</html>

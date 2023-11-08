@@ -1,0 +1,105 @@
+version: '3.9'
+services:
+  server1:
+    container_name: Boerse_XETRA_DEU
+    hostname: socket-server
+    environment:
+      - CONTAINER_NAME=Boerse_XETRA_DEU
+    build:
+      context: ./udp-socket/socket-server
+      dockerfile: Dockerfile
+    depends_on:
+      - client
+    ports:
+      - 6543/udp
+
+
+  server2:
+    container_name: Boerse_NYSE_America
+    hostname: socket-server
+    environment:
+      - CONTAINER_NAME=Boerse_NYSE_America
+    build:
+      context: ./udp-socket/socket-server
+      dockerfile: Dockerfile
+    depends_on:
+      - client
+    ports:
+      - 6544/udp
+
+  client1:
+    container_name: Sparkasse_Bank
+    hostname: client
+    environment:
+      - DESTINATION=socket-server
+      - FILE_PATH=/app/html/index.html
+    # - FILE_PATH2=/app/zustand/zustandZaeler.txt
+      - CONTAINER_NAME=Sparkasse_Bank
+      - PORT_NUMBER=3142
+    build:
+      context: ./udp-socket/socket-client
+      dockerfile: Dockerfile
+    volumes:
+      - ./html:/app/html
+    # - ./zustand:/app/zustand
+
+    ports:
+      - 3142:3142/tcp
+
+
+  client2:
+    container_name: Volksbank
+    hostname: client
+    environment:
+      - DESTINATION=socket-server
+      - FILE_PATH=/app/html/index.html
+    # - FILE_PATH2=/app/zustand/zustandZaeler.txt
+      - CONTAINER_NAME=Volksbank
+      - PORT_NUMBER=3143
+    build:
+      context: ./udp-socket/socket-client
+      dockerfile: Dockerfile
+    volumes:
+      - ./html:/app/html
+    # - ./zustand:/app/zustand
+    ports:
+      - 3143:3143/tcp
+  
+  client3:
+    container_name: Aareal_Bank
+    hostname: client
+    environment:
+      - DESTINATION=socket-server
+      - FILE_PATH=/app/html/index.html
+    # - FILE_PATH2=/app/zustand/zustandZaeler.txt
+      - CONTAINER_NAME=Aareal_Bank  
+      - PORT_NUMBER=3144    
+    build:
+      context: ./udp-socket/socket-client
+      dockerfile: Dockerfile
+    volumes:
+      - ./html:/app/html
+    # - ./zustand:/app/zustand
+    ports:
+      - 3144:3144/tcp
+  
+  client4:
+    container_name: Commerz_Bank
+    hostname: client
+    environment:
+      - DESTINATION=socket-server
+      - FILE_PATH=/app/html/index.html
+    # - FILE_PATH2=/app/zustand/zustandZaeler.txt
+      - CONTAINER_NAME=Commerz_Bank
+      - PORT_NUMBER=3145
+    build:
+      context: ./udp-socket/socket-client
+      dockerfile: Dockerfile
+    volumes:
+      - ./html:/app/html
+    # - ./zustand:/app/zustand
+    ports:
+      - 3145:3145/tcp
+
+  mosquitto:
+    image: eclipse-mosquitto:1.6.12
